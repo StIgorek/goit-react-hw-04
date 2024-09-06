@@ -11,16 +11,18 @@ const instance = axios.create({
   },
 });
 
-export const fetchImages = async (searchRequest) => {
+export const fetchImages = async (newQuery, page) => {
   const response = await instance.get(`/search/photos`, {
     params: {
-      query: searchRequest,
-      //orientation: "landscape",
-      //page,
-      //per_page: 20,
+      query: newQuery,
+      orientation: "landscape",
+      page,
+      per_page: 6,
     },
   });
 
-  return response.data
-
+  return {
+    results: response.data.results,
+    total_pages: response.data.total_pages,
+  }
 };

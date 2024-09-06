@@ -1,3 +1,12 @@
 .list {
   list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.wrap {
+  flex-basis: calc((100% - 40px) / 5);
 }
