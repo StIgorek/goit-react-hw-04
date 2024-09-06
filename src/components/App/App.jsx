@@ -3,9 +3,11 @@ import SearchBar from "../SearchBar/SearchBar";
 import Loader from "../Loader/Loader";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import ImageModal from "../ImageModal/ImageModal";
 import { useState, useEffect } from "react";
 import { fetchImages } from "../../api-unsplash";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   const [loading, setLoading] = useState(false);
@@ -24,7 +26,7 @@ export default function App() {
     async function getImages() {
       try {
         setLoading(true);
-        setImages([]);
+        //setImages([]);
         setError(false);
         setShowBtn(false);
         const res = await fetchImages(query, page);
@@ -68,13 +70,14 @@ export default function App() {
         <ImageGallery values={images} onImageClick={openModal} />
       )}
       {loading && <Loader />}
-      {error && <b>Error</b>}
+      {error && <ErrorMessage />}
       {showBtn && <LoadMoreBtn onClick={handleLoadMore} />}
       <ImageModal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         imageData={selectedImage}
       />
+      <Toaster />
     </div>
   );
 }
