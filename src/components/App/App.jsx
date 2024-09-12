@@ -21,14 +21,16 @@ export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    if (!query) return;
+    if (query === "") {
+      return;
+    }
 
     async function getImages() {
       try {
         setLoading(true);
-        //setImages([]);
         setError(false);
         setShowBtn(false);
+        //setImages();
         const res = await fetchImages(query, page);
         setImages((prevImages) => [...prevImages, ...res.results]);
         setTotalPages(res.total_pages);

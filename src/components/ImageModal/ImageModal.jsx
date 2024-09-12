@@ -21,9 +21,9 @@ export default function ImageModal({ isOpen, onRequestClose, imageData }) {
       className={css.modal}
       overlayClassName={css.overlay}
     >
-      <div className={css.content}>
+      <div>
         <img src={regular} alt={alt_description} className={css.image} />
-        <div className={css.details}>
+        <div className={css.content}>
           <p>
             <strong>Author:</strong> {name}
           </p>
@@ -32,6 +32,7 @@ export default function ImageModal({ isOpen, onRequestClose, imageData }) {
               <strong>Instagram:</strong> @{instagram_username}
             </p>
           )}
+
           {description && (
             <p>
               <strong>Description:</strong> {description}
