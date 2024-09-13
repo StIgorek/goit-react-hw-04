@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
 
 export default function ErrorMessage() {
-  return toast.error("Щось пішло не так. Спробуйте ще раз");
+  return toast.error("Помилка запиту, спробуйте ще раз");
 }

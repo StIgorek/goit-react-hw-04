@@ -8,6 +8,7 @@ import ImageModal from "../ImageModal/ImageModal";
 import { useState, useEffect } from "react";
 import { fetchImages } from "../../api-unsplash";
 import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 export default function App() {
   const [loading, setLoading] = useState(false);
@@ -30,25 +31,25 @@ export default function App() {
         setLoading(true);
         setError(false);
         setShowBtn(false);
-        //setImages();
         const res = await fetchImages(query, page);
         setImages((prevImages) => [...prevImages, ...res.results]);
         setTotalPages(res.total_pages);
         setShowBtn(totalPages && totalPages !== page);
       } catch (error) {
-        setError(true);
+        toast.error("Щось пішло не так. Спробуйте ще раз", error);
       } finally {
         setLoading(false);
       }
     }
     getImages();
-  }, [query, page, totalPages]);
+  }, [query, page]);
 
   const handleSearch = (newQuery) => {
     setQuery(newQuery);
     setPage(1);
     setImages([]);
     setShowBtn(false);
+    setError(false);
   };
 
   const handleLoadMore = () => {
@@ -68,7 +69,7 @@ export default function App() {
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-      {images.length > 0 && (
+      {images.length >= 1 && (
         <ImageGallery values={images} onImageClick={openModal} />
       )}
       {loading && <Loader />}
