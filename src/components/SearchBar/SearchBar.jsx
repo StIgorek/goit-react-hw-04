@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import css from "../SearchBar/SearchBar.module.css";
+import toast from "react-hot-toast";
 
 export default function SearchBar({ onSearch }) {
   return (
@@ -7,6 +8,11 @@ export default function SearchBar({ onSearch }) {
       <Formik
         initialValues={{ query: "" }}
         onSubmit={(values, actions) => {
+          if (!values.query) {
+            toast.error("Будь ласка, зробіть ваш запит");
+            return;
+          }
+
           onSearch(values.query);
           actions.resetForm();
         }}
@@ -20,6 +26,7 @@ export default function SearchBar({ onSearch }) {
             className={css.input}
             name="query"
           />
+
           <button type="submit">Search</button>
         </Form>
       </Formik>

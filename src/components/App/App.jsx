@@ -34,6 +34,10 @@ export default function App() {
         const res = await fetchImages(query, page);
         setImages((prevImages) => [...prevImages, ...res.results]);
         setTotalPages(res.total_pages);
+        if (res.total_pages === 0) {
+          toast.error("Перевірте правильність запиту");
+          return;
+        }
         setShowBtn(totalPages && totalPages !== page);
       } catch (error) {
         toast.error("Щось пішло не так. Спробуйте ще раз", error);
